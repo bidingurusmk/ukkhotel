@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ukkhotel/controllers/login_controller.dart';
 import 'package:ukkhotel/services.dart/login.dart';
 
 class LoginView extends StatefulWidget {
@@ -9,6 +10,9 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  bool loading = false;
+  LoginController? loginAction;
+  LoginService? loginService;
   TextEditingController usernameInput = TextEditingController();
   TextEditingController passwordInput = TextEditingController();
   @override
@@ -25,9 +29,22 @@ class _LoginViewState extends State<LoginView> {
             ),
             ElevatedButton(
               onPressed: () async {
-                final result = await Login().loginAct();
+                setState(() {
+                  loading = true;
+                });
+                Map data = {
+                  'email': usernameInput.text,
+                  'password': passwordInput.text,
+                };
+                final result = await loginService!.loginAct(data);
+                setState(() {
+                  loading = false;
+                });
+                // print(result);
               },
-              child: Text("login"),
+              child: loading == false
+                  ? Text("login")
+                  : CircularProgressIndicator(),
             )
           ],
         ),

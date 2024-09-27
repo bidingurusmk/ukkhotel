@@ -2,12 +2,21 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-class Login {
+class LoginService {
   String baseUrl = "http://ukkhotel.smktelkom-mlg.sch.id/api";
-  Future<String?>? loginAct() async {
+  Future loginAct(request) async {
     final url = Uri.parse(this.baseUrl + "/login");
-    final getLogin = await http.get(url);
-    print(jsonDecode(getLogin.body));
-    return null;
+    try {
+      final getLogin =
+          await http.post(url, body: request, headers: {'makerID': '2'});
+      if (getLogin.statusCode == 200) {
+        return jsonDecode(getLogin.body);
+      } else {
+        return null;
+      }
+    } on Exception catch (e) {
+      print("error koneksi");
+      return e;
+    }
   }
 }
