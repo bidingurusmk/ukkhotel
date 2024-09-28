@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ukkhotel/controllers/login_controller.dart';
-import 'package:ukkhotel/services.dart/login.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -11,10 +10,12 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   bool loading = false;
-  LoginController? loginAction;
-  LoginService? loginService;
+  LoginController? loginAction = LoginController();
   TextEditingController usernameInput = TextEditingController();
   TextEditingController passwordInput = TextEditingController();
+
+  String? username;
+  String? password;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,22 +31,24 @@ class _LoginViewState extends State<LoginView> {
             ElevatedButton(
               onPressed: () async {
                 setState(() {
+                  username = usernameInput.text;
+                  password = passwordInput.text;
                   loading = true;
                 });
                 Map data = {
-                  'email': usernameInput.text,
-                  'password': passwordInput.text,
+                  'email': username,
+                  'password': password,
                 };
-                final result = await loginService!.loginAct(data);
+                await loginAction!.loginAct(data);
                 setState(() {
                   loading = false;
                 });
-                // print(result);
+                Navigator.pushReplacementNamed(context, '/');
               },
               child: loading == false
                   ? Text("login")
                   : CircularProgressIndicator(),
-            )
+            ),
           ],
         ),
       ),
