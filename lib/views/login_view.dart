@@ -16,6 +16,7 @@ class _LoginViewState extends State<LoginView> {
 
   String? username;
   String? password;
+  String message = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,16 +40,23 @@ class _LoginViewState extends State<LoginView> {
                   'email': username,
                   'password': password,
                 };
-                await loginAction!.loginAct(data);
+                var login = await loginAction!.loginAct(data);
+                if (login['status'] == true) {
+                  Navigator.pushReplacementNamed(context, '/');
+                } else {
+                  setState(() {
+                    message = login['message'];
+                  });
+                }
                 setState(() {
                   loading = false;
                 });
-                Navigator.pushReplacementNamed(context, '/');
               },
               child: loading == false
                   ? Text("login")
                   : CircularProgressIndicator(),
             ),
+            Text(message)
           ],
         ),
       ),

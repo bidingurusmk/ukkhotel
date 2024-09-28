@@ -11,7 +11,10 @@ class LoginController {
     if (login != null) {
       print(login);
       prefs.setString("data_login", jsonEncode(login));
-      return login;
+      return {
+        "status": true,
+        "data": login,
+      };
     } else {
       return {"status": false, "message": "username dan password salah"};
     }
