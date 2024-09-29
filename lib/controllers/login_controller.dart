@@ -9,8 +9,9 @@ class LoginController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final login = await loginServ!.loginAct(request);
     if (login != null) {
-      print(login);
+      // print(login);
       prefs.setString("data_login", jsonEncode(login));
+      prefs.setBool("is_login", true);
       return {
         "status": true,
         "data": login,
@@ -20,9 +21,14 @@ class LoginController {
     }
   }
 
-  Future<String?> getDataLogin() async {
+  Future<Map?> getDataLogin() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var dataLogin = prefs.getString("data_login");
-    return dataLogin;
+    var is_login = prefs.getBool("is_login");
+    var data1 = {
+      "status": is_login,
+      'dataLogin': dataLogin,
+    };
+    return data1;
   }
 }
