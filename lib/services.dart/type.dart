@@ -5,6 +5,7 @@ import 'dart:io';
 
 class TypeService {
   String baseUrl = "https://ukkhotel.smktelkom-mlg.sch.id/api";
+
   Future InsertType(data, token) async {
     var request = http.MultipartRequest(
       'POST',
@@ -26,17 +27,48 @@ class TypeService {
       "desc": data["desc"],
       // "photo": 'ok'
     });
-    var res = await request.send();
-    if (res.statusCode == 200) {
-      final responseData = await res.stream.toBytes();
-      final responseString = String.fromCharCodes(responseData);
-      final jasonMap = jsonDecode(responseString);
-      print(jasonMap);
-      return jasonMap;
-    } else {
+    try {
+      var res = await request.send();
       var response = await http.Response.fromStream(res);
+      print(response.body);
+      final responseData = jsonDecode(response.body);
+      // print(responseData);
+      if (res.statusCode == 200) {
+        return responseData;
+      } else {
+        // if (response.statusCode >= 400) {
+        return responseData;
+        // }
+      }
+    } on Exception catch (e) {
+      print('error:' + e.toString());
+    }
+  }
 
-      return {"ok": "gagal", "res": response.body};
+  Future getType(token) async {
+    Map<String, String> headers = {
+      "Authorization": "Bearer $token",
+      // "Content-type": "application/json",
+      "makerID": "1"
+    };
+    http.Response response = await http.get(
+      Uri.parse('$baseUrl/type'),
+      headers: headers,
+    );
+    if (response.statusCode == 200) {
+      var data = {
+        'status': true,
+        'message': 'Sukses load data',
+        "data": jsonDecode(response.body)["data"],
+      };
+      return data;
+    } else {
+      var data = {
+        'status': false,
+        'message': 'Gagal load data',
+        "data": null,
+      };
+      return data;
     }
   }
 }

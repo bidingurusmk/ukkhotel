@@ -22,6 +22,7 @@ class _HomeViewState extends State<HomeView> {
   LoginController? loginController = LoginController();
   TypeController type = TypeController();
   String? nama;
+  List listtype = [];
 
   // String? type_name;
   // double? price;
@@ -43,6 +44,7 @@ class _HomeViewState extends State<HomeView> {
     // TODO: implement initState
     super.initState();
     getDataLogin();
+    getTypes();
   }
 
   XFile? selectedImage;
@@ -67,6 +69,14 @@ class _HomeViewState extends State<HomeView> {
   //     _image = image;
   //   }
   // }
+  getTypes() async {
+    var getdata = await type.getType();
+    if (getdata != null) {
+      setState(() {
+        listtype = getdata;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -115,7 +125,17 @@ class _HomeViewState extends State<HomeView> {
                     var result = await type.InsertType(data);
                     print(result);
                   },
-                  child: Text("Simpan"))
+                  child: Text("Simpan")),
+              SizedBox(
+                height: 200,
+                child: ListView(
+                  children: [
+                    if (listtype.isNotEmpty)
+                      for (var items in listtype)
+                        Card(child: Text(items["type_name"]))
+                  ],
+                ),
+              )
             ],
           ),
         ),

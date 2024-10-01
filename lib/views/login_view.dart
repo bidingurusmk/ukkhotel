@@ -20,44 +20,49 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            TextField(
-              controller: usernameInput,
-            ),
-            TextField(
-              controller: passwordInput,
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                setState(() {
-                  username = usernameInput.text;
-                  password = passwordInput.text;
-                  loading = true;
-                });
-                Map data = {
-                  'email': username,
-                  'password': password,
-                };
-                var login = await loginAction!.loginAct(data);
-                if (login['status'] == true) {
-                  Navigator.pushReplacementNamed(context, '/');
-                } else {
+      body: SafeArea(
+        child: Container(
+          margin: EdgeInsets.all(10),
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextField(
+                controller: usernameInput,
+              ),
+              TextField(
+                controller: passwordInput,
+              ),
+              ElevatedButton(
+                onPressed: () async {
                   setState(() {
-                    message = login['message'];
+                    username = usernameInput.text;
+                    password = passwordInput.text;
+                    loading = true;
                   });
-                }
-                setState(() {
-                  loading = false;
-                });
-              },
-              child: loading == false
-                  ? Text("login")
-                  : CircularProgressIndicator(),
-            ),
-            Text(message)
-          ],
+                  Map data = {
+                    'email': username,
+                    'password': password,
+                  };
+                  var login = await loginAction!.loginAct(data);
+                  if (login['status'] == true) {
+                    Navigator.pushReplacementNamed(context, '/');
+                  } else {
+                    setState(() {
+                      message = login['message'];
+                    });
+                  }
+                  setState(() {
+                    loading = false;
+                  });
+                },
+                child: loading == false
+                    ? Text("login")
+                    : CircularProgressIndicator(),
+              ),
+              Text(message)
+            ],
+          ),
         ),
       ),
     );
