@@ -73,9 +73,9 @@ class TypeService {
     }
   }
 
-  Future getType(token) async {
+  Future getType() async {
     Map<String, String> headers = {
-      "Authorization": "Bearer $token",
+      // "Authorization": "Bearer $token",
       // "Content-type": "application/json",
       "makerID": baseUrlService().makerID
     };
@@ -86,41 +86,32 @@ class TypeService {
     // print(jsonDecode(response.body));
 
     if (response.statusCode == 200) {
-      var responseData = jsonDecode(response.body);
-      var cekResponse = responseData.length;
-      if (cekResponse > 0 && responseData["status"] == "Token is Expired") {
-        var typeroom = ResponseData(status: false, message: "Token is Expired");
-        return typeroom;
-        // return {"status": false, "message": "Token is Expired", "data": null};
-      } else if (cekResponse > 0 &&
-          responseData["status"] == "Token is Invalid") {
-        var typeroom = ResponseData(status: false, message: "Token is Invalid");
-        return typeroom;
-        // return {"status": false, "message": "Token is Invalid", "data": null};
-      } else {
-        var data = jsonDecode(response.body)["data"];
-        // print(data[0]["type_name"]);
-        ResponseData typeroom = ResponseData(
-            status: true,
-            message: "sukses load data",
-            data: data
-                .map((r) => {
-                      "type_id": r["type_id"],
-                      "type_name": r["type_name"],
-                      "desc": r["desc"],
-                      "price": r["price"],
-                      "photo_path": r["photo_path"],
-                    })
-                .toList());
-        // print(typeroom.data![0]["type_name"]);
-        return typeroom;
-        // var data = {
-        //   'status': true,
-        //   'message': 'Sukses load data',
-        //   "data": jsonDecode(response.body)["data"],
-        // };
-        // return data;
-      }
+      // var responseData = jsonDecode(response.body);
+      // var cekResponse = responseData.length;
+      // if (cekResponse > 0 && responseData["status"] == "Token is Expired") {
+      //   var typeroom = ResponseData(status: false, message: "Token is Expired");
+      //   return typeroom;
+      // } else if (cekResponse > 0 &&
+      //     responseData["status"] == "Token is Invalid") {
+      //   var typeroom = ResponseData(status: false, message: "Token is Invalid");
+      //   return typeroom;
+      // } else {
+      var data = jsonDecode(response.body)["data"];
+      // print(data[0]["type_name"]);
+      ResponseData typeroom = ResponseData(
+          status: true,
+          message: "sukses load data",
+          data: data
+              .map((r) => {
+                    "type_id": r["type_id"],
+                    "type_name": r["type_name"],
+                    "desc": r["desc"],
+                    "price": r["price"],
+                    "photo_path": r["photo_path"],
+                  })
+              .toList());
+      return typeroom;
+      // }
     } else {
       var typeroom = ResponseData(
         status: false,

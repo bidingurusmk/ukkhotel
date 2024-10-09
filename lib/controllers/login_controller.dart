@@ -16,6 +16,7 @@ class LoginController {
       prefs.setString("access_token", login["access_token"]);
       prefs.setString("name", login["user"]["name"]);
       prefs.setInt("id_user", login["user"]["id"]);
+      prefs.setString("role", login["user"]["role"]);
       prefs.setBool("is_login", true);
       return {
         "status": true,
@@ -36,21 +37,10 @@ class LoginController {
           access_token: prefs.getString("access_token"),
           id_user: prefs.getInt("id_user"),
           name: prefs.getString("name"),
+          role: prefs.getString("role"),
           status: true);
-      // data1 = {
-      //   "status": true,
-      //   "access_token": prefs.getString("access_token"),
-      //   "name": prefs.getString("name"),
-      //   "id_user": prefs.getInt("id_user"),
-      // };
     } else {
       user = UserLogin(status: false);
-      // data1 = {
-      //   "status": false,
-      //   "access_token": null,
-      //   "name": null,
-      //   "id_user": null,
-      // };
     }
     return user;
   }

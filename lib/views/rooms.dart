@@ -164,7 +164,8 @@ class _RommsViewState extends State<RommsView> {
                                       judulPage = 'Update';
                                       type_id = items["type_id"];
                                     });
-                                    roomNumberInput.text = items["room_number"];
+                                    roomNumberInput.text =
+                                        items["room_number"].toString();
                                   } else if (item == "Hapus") {
                                     var resultHapus =
                                         await room.hapusRoom(items["room_id"]);

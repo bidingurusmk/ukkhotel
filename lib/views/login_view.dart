@@ -33,32 +33,48 @@ class _LoginViewState extends State<LoginView> {
               TextField(
                 controller: passwordInput,
               ),
-              ElevatedButton(
-                onPressed: () async {
-                  setState(() {
-                    username = usernameInput.text;
-                    password = passwordInput.text;
-                    loading = true;
-                  });
-                  Map data = {
-                    'email': username,
-                    'password': password,
-                  };
-                  var login = await loginAction!.loginAct(data);
-                  if (login['status'] == true) {
-                    Navigator.pushReplacementNamed(context, '/');
-                  } else {
-                    setState(() {
-                      message = login['message'];
-                    });
-                  }
-                  setState(() {
-                    loading = false;
-                  });
-                },
-                child: loading == false
-                    ? Text("login")
-                    : CircularProgressIndicator(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                      onPressed: () async {
+                        setState(() {
+                          username = usernameInput.text;
+                          password = passwordInput.text;
+                          loading = true;
+                        });
+                        Map data = {
+                          'email': username,
+                          'password': password,
+                        };
+                        var login = await loginAction!.loginAct(data);
+                        if (login['status'] == true) {
+                          Navigator.pushReplacementNamed(context, '/');
+                        } else {
+                          setState(() {
+                            message = login['message'];
+                          });
+                        }
+                        setState(() {
+                          loading = false;
+                        });
+                      },
+                      child: loading == false
+                          ? Text("login", style: TextStyle(color: Colors.white))
+                          : CircularProgressIndicator(),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.red)),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, "/pesan");
+                      },
+                      child: Text(
+                        "Pesan Hotel",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green)),
+                ],
               ),
               Text(message)
             ],

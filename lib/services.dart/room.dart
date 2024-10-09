@@ -8,27 +8,34 @@ class RoomService {
   String baseUrl = "${baseUrlService().baseUrl}/api";
 
   Future InsertRoom(data, token, id) async {
-    var url;
-    if (id == null) {
-      url = '$baseUrl/room';
-    } else {
-      url = '$baseUrl/room/$id';
-    }
-    Map<String, String> headers = {
-      "Authorization": "Bearer $token",
-      // "Content-type": "application/json",
-      "makerID": baseUrlService().makerID
-    };
     try {
-      http.Response response = await http.post(
-        Uri.parse(url),
-        headers: headers,
-        body: data,
-      );
+      var url;
+      Map<String, String> headers = {
+        "Authorization": "Bearer $token",
+        // "Content-type": "application/json",
+        "makerID": baseUrlService().makerID
+      };
+      http.Response response;
+
+      if (id == null) {
+        url = '$baseUrl/room';
+        response = await http.post(
+          Uri.parse(url),
+          headers: headers,
+          body: data,
+        );
+      } else {
+        url = '$baseUrl/room/$id';
+        response = await http.put(
+          Uri.parse(url),
+          headers: headers,
+          body: data,
+        );
+      }
 
       if (response.statusCode == 200) {
         final responseData = jsonDecode(response.body);
-        print("sukses insert");
+        print("sukses update");
         print(responseData);
         var cekResponse = responseData.length;
         if (cekResponse > 0 && responseData["status"] == "Token is Expired") {

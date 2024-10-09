@@ -23,17 +23,9 @@ class TypeController {
   // }
 
   getType() async {
-    var user = await datalogin.getDataLogin();
-    if (user!.status != false) {
-      var cekuser = user.access_token;
-      var token = cekuser;
-      var data = await type.getType(token);
-      if (data.status == true) {
-        // print(data.data[0].type_name);
-        return data;
-      } else {
-        return null;
-      }
+    var data = await type.getType();
+    if (data.status == true) {
+      return data;
     } else {
       return null;
     }
