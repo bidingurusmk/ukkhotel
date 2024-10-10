@@ -8,15 +8,9 @@ class Pesan {
   LoginController datalogin = LoginController();
   String baseUrl = "${baseUrlService().baseUrl}/api";
   Future simpanPesan(data) async {
-    var user = await datalogin.getDataLogin();
-    var token = user!.access_token;
-    Map<String, String> headers = {
-      "Authorization": "Bearer $token",
-      // "Content-type": "application/json",
-      "makerID": baseUrlService().makerID
-    };
+    Map<String, String> headers = {"makerID": baseUrlService().makerID};
     http.Response response = await http.post(
-      Uri.parse('$baseUrl/room'),
+      Uri.parse('$baseUrl/orders'),
       headers: headers,
       body: data,
     );
