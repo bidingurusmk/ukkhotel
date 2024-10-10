@@ -14,21 +14,22 @@ class Pesan {
       headers: headers,
       body: data,
     );
+    print(data);
 
     if (response.statusCode == 200) {
       var responseData = jsonDecode(response.body);
-      var cekResponse = responseData.length;
-      if (cekResponse > 0 && responseData["status"] == "Token is Expired") {
-        return {"status": false, "data": "Token is Expired"};
-      } else if (cekResponse > 0 &&
-          responseData["status"] == "Token is Invalid") {
-        return {"status": false, "data": "Token is Invalid"};
-      } else {
-        return {"status": true, "data": responseData};
-      }
+      // var cekResponse = responseData.length;
+      // if (cekResponse > 0 && responseData["status"] == "Token is Expired") {
+      //   return {"status": false, "data": "Token is Expired"};
+      // } else if (cekResponse > 0 &&
+      //     responseData["status"] == "Token is Invalid") {
+      //   return {"status": false, "data": "Token is Invalid"};
+      // } else {
+      return {"status": true, "data": responseData};
+      // }
     } else {
       print('gagal insert ${response.statusCode}');
-      return false;
+      return {"status": false, "data": null};
     }
   }
 }

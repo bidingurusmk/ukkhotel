@@ -31,6 +31,15 @@ class TypeController {
     }
   }
 
+  getType_available(data_checkin) async {
+    var data = await type.getType_available(data_checkin);
+    if (data.status == true) {
+      return data;
+    } else {
+      return null;
+    }
+  }
+
   hapusType(id) async {
     var user = await datalogin.getDataLogin();
     if (user!.status != false) {

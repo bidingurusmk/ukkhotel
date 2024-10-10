@@ -28,8 +28,8 @@ Future<void> main() async {
   runApp(MaterialApp(
     initialRoute: isLoggedIn != false ? '/' : '/login',
     routes: {
-      '/': (_) => HomeView(),
       '/login': (_) => LoginView(),
+      '/': (_) => HomeView(),
       '/rooms': (_) => RommsView(),
       '/pesan': (_) => PesanView(),
       '/detailhotel': (_) => DetailHotelView(),

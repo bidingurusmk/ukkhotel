@@ -6,7 +6,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:ukkhotel/controllers/login_controller.dart';
 import 'package:ukkhotel/controllers/type_controller.dart';
 import 'package:ukkhotel/models/response_data.dart';
-import 'package:ukkhotel/models/type_model.dart';
 import 'package:ukkhotel/services.dart/base_url.dart';
 import 'package:ukkhotel/widgets/alert.dart';
 import 'package:ukkhotel/widgets/menu_bottom.dart';

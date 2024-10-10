@@ -1,8 +1,6 @@
 import 'dart:convert';
-import 'package:http_parser/http_parser.dart';
 import 'package:http/http.dart' as http;
 import 'package:ukkhotel/models/response_data.dart';
-import 'package:ukkhotel/models/type_model.dart';
 import 'dart:io';
 
 import 'package:ukkhotel/services.dart/base_url.dart';
@@ -108,6 +106,51 @@ class TypeService {
                     "desc": r["desc"],
                     "price": r["price"],
                     "photo_path": r["photo_path"],
+                  })
+              .toList());
+      return typeroom;
+      // }
+    } else {
+      var typeroom = ResponseData(
+        status: false,
+        message: "gagal load data",
+      );
+      // var data = {
+      //   'status': false,
+      //   'message': 'Gagal load data',
+      //   "data": null,
+      // };
+      return typeroom;
+    }
+  }
+
+  Future getType_available(data) async {
+    Map<String, String> headers = {
+      // "Authorization": "Bearer $token",
+      // "Content-type": "application/json",
+      "makerID": baseUrlService().makerID
+    };
+    http.Response response = await http.post(
+      Uri.parse('$baseUrl/datefilter'),
+      headers: headers,
+      body: data,
+    );
+    print(jsonDecode(response.body));
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body)["data"];
+      // print(data[0]["type_name"]);
+      ResponseData typeroom = ResponseData(
+          status: true,
+          message: "sukses load data",
+          data: data
+              .map((r) => {
+                    "type_id": r["type_id"],
+                    "type_name": r["type_name"],
+                    "desc": r["desc"],
+                    "price": r["price"],
+                    "photo_path":
+                        '${baseUrlService().baseUrl}/images/' + r["photo_name"],
                   })
               .toList());
       return typeroom;
