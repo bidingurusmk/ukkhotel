@@ -111,24 +111,22 @@ class _PesanViewState extends State<PesanView> {
                                   borderRadius: BorderRadius.circular(10),
                                   border: Border.all(color: Colors.grey)),
                               child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
                                   Container(
-                                    child: Stack(
-                                      children: [
-                                        FadeInImage(
-                                          image:
-                                              NetworkImage(item["photo_path"]!),
-                                          placeholder:
-                                              AssetImage("assets/loading.gif"),
-                                          imageErrorBuilder:
-                                              (context, error, stackTrace) {
-                                            return Image.asset(
-                                                'assets/error.png',
-                                                fit: BoxFit.fitHeight);
-                                          },
-                                          fit: BoxFit.fitHeight,
-                                        ),
-                                      ],
+                                    height: 150,
+                                    width: MediaQuery.of(context).size.width,
+                                    child: FadeInImage(
+                                      image: NetworkImage(item["photo_path"]!),
+                                      placeholder:
+                                          AssetImage("assets/loading.gif"),
+                                      imageErrorBuilder:
+                                          (context, error, stackTrace) {
+                                        return Image.asset('assets/error.png',
+                                            fit: BoxFit.fitHeight);
+                                      },
+                                      fit: BoxFit.fitWidth,
                                     ),
                                   ),
                                   Text(

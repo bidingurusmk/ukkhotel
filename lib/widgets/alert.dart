@@ -47,4 +47,26 @@ class AlertMessage {
     );
     ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
+
+  ShowDialog(context, isian) {
+    showDialog(
+        context: context,
+        barrierDismissible:
+            false, // Prevents dialog from closing on tap outside
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('Alert'),
+            content: isian,
+            actions: <Widget>[
+              MaterialButton(
+                onPressed: () {
+                  Navigator.of(context).pop(); // Close the dialog
+                  Navigator.pushReplacementNamed(context, '/login');
+                },
+                child: Text('Close'),
+              ),
+            ],
+          );
+        });
+  }
 }

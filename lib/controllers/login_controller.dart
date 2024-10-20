@@ -18,12 +18,18 @@ class LoginController {
       prefs.setInt("id_user", login["user"]["id"]);
       prefs.setString("role", login["user"]["role"]);
       prefs.setBool("is_login", true);
-      return {
-        "status": true,
-        "data": login,
-      };
+      UserLogin data = UserLogin(
+          status: true,
+          id_user: login["user"]["id"],
+          name: login["user"]["name"],
+          role: login["user"]["role"],
+          access_token: login["access_token"]);
+      return data;
     } else {
-      return {"status": false, "message": "username dan password salah"};
+      UserLogin data = UserLogin(
+        status: false,
+      );
+      return data;
     }
   }
 

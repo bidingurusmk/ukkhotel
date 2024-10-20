@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ukkhotel/controllers/login_controller.dart';
+import 'package:ukkhotel/views/cek_pesanan.dart';
+import 'package:ukkhotel/views/confirmasi_keluar.dart';
+import 'package:ukkhotel/views/dashboard_view.dart';
 import 'package:ukkhotel/views/detail_hotel_view.dart';
-import 'package:ukkhotel/views/home_view.dart';
+import 'package:ukkhotel/views/type_view.dart';
+import 'package:ukkhotel/views/kelola_pesan_view.dart';
 import 'package:ukkhotel/views/login_view.dart';
 import 'package:ukkhotel/views/pesan_view.dart';
 import 'package:ukkhotel/views/rooms.dart';
@@ -26,13 +30,17 @@ Future<void> main() async {
   }
   // print(prefs.getBool('is_login'));
   runApp(MaterialApp(
-    initialRoute: isLoggedIn != false ? '/' : '/login',
+    initialRoute: isLoggedIn != false ? '/dashboard' : '/login',
     routes: {
       '/login': (_) => LoginView(),
-      '/': (_) => HomeView(),
+      '/typeroom': (_) => TypeView(),
       '/rooms': (_) => RommsView(),
       '/pesan': (_) => PesanView(),
       '/detailhotel': (_) => DetailHotelView(),
+      "/kelolapesan": (_) => KelolaPesanView(),
+      "/": (_) => ConfirmKeluar(),
+      "/dashboard": (_) => DashboardView(),
+      "/cekpesanan": (_) => CekPesanan(),
     },
   ));
 }

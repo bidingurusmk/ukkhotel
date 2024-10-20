@@ -10,14 +10,14 @@ import 'package:ukkhotel/services.dart/base_url.dart';
 import 'package:ukkhotel/widgets/alert.dart';
 import 'package:ukkhotel/widgets/menu_bottom.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+class TypeView extends StatefulWidget {
+  const TypeView({super.key});
 
   @override
-  State<HomeView> createState() => _HomeViewState();
+  State<TypeView> createState() => _TypeViewState();
 }
 
-class _HomeViewState extends State<HomeView> {
+class _TypeViewState extends State<TypeView> {
   TextEditingController typeNameInput = TextEditingController();
   TextEditingController hargaInput = TextEditingController();
   TextEditingController descInput = TextEditingController();
@@ -41,6 +41,8 @@ class _HomeViewState extends State<HomeView> {
       setState(() {
         nama = namaUser;
       });
+    } else {
+      Navigator.pushReplacementNamed(context, '/login');
     }
   }
 

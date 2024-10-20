@@ -48,11 +48,11 @@ class _LoginViewState extends State<LoginView> {
                           'password': password,
                         };
                         var login = await loginAction!.loginAct(data);
-                        if (login['status'] == true) {
-                          Navigator.pushReplacementNamed(context, '/');
+                        if (login.status == true) {
+                          Navigator.pushNamed(context, '/dashboard');
                         } else {
                           setState(() {
-                            message = login['message'];
+                            message = 'Username dan password salah';
                           });
                         }
                         setState(() {
@@ -74,6 +74,16 @@ class _LoginViewState extends State<LoginView> {
                       ),
                       style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.green)),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, "/cekpesanan");
+                      },
+                      child: Text(
+                        "Cek Pesanan",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.orange)),
                 ],
               ),
               Text(message)

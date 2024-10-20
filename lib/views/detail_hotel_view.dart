@@ -4,6 +4,7 @@ import 'package:ukkhotel/services.dart/base_url.dart';
 import 'package:ukkhotel/services.dart/pesan.dart';
 import 'package:intl/intl.dart';
 import 'package:ukkhotel/widgets/alert.dart';
+import 'package:ukkhotel/widgets/modal.dart';
 
 class DetailHotelView extends StatefulWidget {
   const DetailHotelView({super.key});
@@ -112,12 +113,14 @@ class _DetailHotelViewState extends State<DetailHotelView> {
                     "type_id": item['data']["type_id"].toString(),
                   };
                   var result = await Pesan().simpanPesan(data);
-                  if (result["status"] == true) {
+                  if (result.status == true) {
+                    AlertMessage().ShowDialog(
+                      context,
+                      Text(
+                          "Order Number anda adalah: ${result.data["data"]["order_number"]}"),
+                    );
                     AlertMessage()
                         .showAlert(context, "Sukses pesan Hotel", true);
-                    Future.delayed(Duration(milliseconds: 100), () {
-                      Navigator.pushReplacementNamed(context, '/login');
-                    });
                   } else {
                     AlertMessage()
                         .showAlert(context, "Gagal pesan Hotel", false);
