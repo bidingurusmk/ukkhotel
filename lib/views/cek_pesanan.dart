@@ -64,6 +64,9 @@ class _CekPesananState extends State<CekPesanan> {
                       'order_number': order_number.text,
                       'email': email.text,
                     };
+                    setState(() {
+                      roomCek = null;
+                    });
                     var result = await pesan.cekPesan(data);
                     if (result.status == true) {
                       setState(() {
