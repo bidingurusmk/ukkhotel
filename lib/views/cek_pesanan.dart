@@ -147,10 +147,6 @@ class _CekPesananState extends State<CekPesanan> {
                                 DataCell(
                                     Text(roomCek!["grand_total"].toString())),
                               ]),
-                              DataRow(cells: [
-                                DataCell(Text("Status")),
-                                DataCell(Text(roomCek!["status"].toString())),
-                              ]),
                             ]),
                             for (var r in roomCek!["room_data"])
                               Card(
